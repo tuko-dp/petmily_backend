@@ -5,6 +5,7 @@ from ConnectMysql import ConnectMysql
 # 라우터로 처리한 API 가져오기
 from router import User
 from router import WithMap
+from router import OrganicAnimals
 
 # app이라는 객체를 생성
 app = FastAPI()
@@ -32,3 +33,4 @@ def read_root():
 # router 객체 등록
 app.include_router(User.router)
 app.include_router(WithMap.router)
+app.include_router(OrganicAnimals.router)
