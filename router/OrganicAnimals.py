@@ -16,11 +16,11 @@ APIKEY = os.environ.get("ANI_KEY")
 """
 def get_orgainc_animal_API():
   url = 'http://apis.data.go.kr/1543061/abandonmentPublicSrvc/abandonmentPublic'
-  params ={'serviceKey' : ''.format(APIKEY), 'care_reg_no' : '', 'care_nm' : '', 'numOfRows' : '1', 'pageNo' : '1', '_type' : 'json' }
+  params ={'serviceKey' : APIKEY, 'care_reg_no' : '', 'care_nm' : '', 'numOfRows' : '1', 'pageNo' : '1', '_type' : 'json' }
   response = httpx.get(url=url, params=params)
   data =  json.loads(response.text)
   print(data["response"]["body"])
-  return data["response"]["body"]["items"]["item"]
+  return data["response"]["body"]["items"]["item"][0]
 
 
 @router.get("/")

@@ -29,6 +29,9 @@ def get_culture_API(per_page):
   longitude_data = {}
   operate_data = {}
   call_num_data = {}
+  inside_check = {}
+  outside_check = {}
+  parking_opt = {}
   print("===== 요청 페이지 수 {} =====".format(per_page))
   response = httpx.get("https://api.odcloud.kr/api/15111389/v1/uddi:41944402-8249-4e45-9e9d-a52d0a7db1cc?page=1&perPage={}".format(per_page)+"&serviceKey="+ APIKEY)
   text = response.text
@@ -45,7 +48,10 @@ def get_culture_API(per_page):
     longitude_data[page+1] = data["data"][page]["경도"]
     operate_data[page+1] = data["data"][page]["운영시간"]
     call_num_data[page+1] = data["data"][page]["전화번호"]
-    print (data["data"][page]["시설명"])
+    inside_check[page+1] = data["data"][page]["장소(실내) 여부"]
+    outside_check[page+1] = data["data"][page]["장소(실외)여부"]
+    parking_opt[page+1] = data["data"][page]["주차 가능여부"]
+    print (data["data"][page])
   return {
     "시설명" : result_data,
     "도로명주소": road_address,
@@ -58,6 +64,9 @@ def get_culture_API(per_page):
     "경도": longitude_data,
     "운영시간": operate_data,
     "전화번호": call_num_data,
+    "실내": inside_check,
+    "실외": outside_check,
+    "주차": parking_opt
   }
 
 @router.get("/")
